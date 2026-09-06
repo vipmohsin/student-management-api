@@ -61,3 +61,20 @@ def update_student(roll_no:int, student_data : StudentCreate):
         status_code=404,
         detail="Student not found"
     )
+
+@app.delete("/students/{roll_no}")
+def delete_student(roll_no: int):
+
+    for student in students:
+        if student.roll_no == roll_no:
+
+            students.remove(student)
+
+            return {
+                "message": "Student deleted successfully"
+            }
+
+    raise HTTPException(
+        status_code=404,
+        detail="Student not found"
+    )    
