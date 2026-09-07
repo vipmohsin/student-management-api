@@ -1,0 +1,17 @@
+{
+    "next_roll_no": 104,
+    "students": [
+        {
+            "roll_no": 101,
+            "name": "mohsin khan",
+            "age": 18,
+            "marks": 100
+        },
+        {
+            "roll_no": 102,
+            "name": "hassan raza",
+            "age": 17,
+            "marks": 100
+        }
+    ]
+}
