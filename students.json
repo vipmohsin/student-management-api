@@ -1,5 +1,5 @@
 {
-    "next_roll_no": 106,
+    "next_roll_no": 109,
     "students": [
         {
             "roll_no": 101,
@@ -16,6 +16,18 @@
         {
             "roll_no": 104,
             "name": "mazher",
+            "age": 20,
+            "marks": 100
+        },
+        {
+            "roll_no": 106,
+            "name": "Salik",
+            "age": 20,
+            "marks": 99
+        },
+        {
+            "roll_no": 108,
+            "name": "Jamshaid",
             "age": 20,
             "marks": 100
         }

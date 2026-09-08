@@ -1,7 +1,10 @@
 import os
 import json 
 from student import Student
-
+from exceptions.student_exceptions import (
+    StudentDataLoadError,
+    StudentDataSaveError
+)
 class StudentRepository:
     def __init__(self,filename="students.json"):
         self.filename=filename
@@ -25,17 +28,17 @@ class StudentRepository:
                 self.students.append(student)
 
         except json.JSONDecodeError as e:
-            raise RuntimeError(
+            raise StudentDataLoadError(
             "Student data file contains invalid JSON."
         ) from e
 
         except KeyError as e:
-            raise RuntimeError(
+            raise StudentDataLoadError(
             "Student data file has an invalid structure."
             ) from e
 
         except OSError as e:
-            raise RuntimeError(
+            raise StudentDataLoadError(
             "Student data file could not be read."
         ) from e
        
@@ -46,15 +49,33 @@ class StudentRepository:
         data={
             "next_roll_no": self.next_roll,
             "students":students_data
-        }    
+        }  
+        temp_filename = self.filename + ".tmp"  
+        
         # data file----------------------------------------------------------------
         try:
-            with open(self.filename, "w") as file:
+            with open(temp_filename, "w") as file:
                 json.dump(data, file, indent=4)
+                
+                file.flush()
+                os.fsync(file.fileno())
+            
+            os.replace(temp_filename , self.filename)    
 
         except OSError as e:
-            raise RuntimeError(
+            if os.path.exists(temp_filename):
+             os.remove(temp_filename)
+
+            raise StudentDataSaveError(
             "Student data could not be saved."
+            ) from e
+
+        except TypeError as e:
+            if os.path.exists(temp_filename):
+                os.remove(temp_filename)
+
+            raise StudentDataSaveError(
+                "Student data contains values that cannot be serialized."
             ) from e
         
     
