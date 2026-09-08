@@ -1,5 +1,5 @@
 from repositories.student_repository import StudentRepository
-
+from exceptions.student_exceptions import StudentNotFoundError
 
 class StudentService:
 
@@ -10,12 +10,12 @@ class StudentService:
         return self.repo.get_all()
 
     def get_student_by_roll(self, roll_no):
-        student = self.repo.find_by_roll(roll_no)
-
+        student= self.repo.find_by_roll(roll_no)
         if student is None:
-            return None
-
-        return student
+            raise StudentNotFoundError(
+                f"Student with roll number {roll_no} not found"
+            )
+        return student    
 
     def create_student(self, name, age, marks):
         return self.repo.add(name, age, marks)
@@ -24,7 +24,9 @@ class StudentService:
         student = self.repo.find_by_roll(roll_no)
 
         if student is None:
-            return None
+            raise StudentNotFoundError(
+                f"Student with roll number {roll_no} not found"
+            )
 
         return self.repo.update(
             student,
@@ -37,7 +39,9 @@ class StudentService:
         student = self.repo.find_by_roll(roll_no)
 
         if student is None:
-            return None
+            raise StudentNotFoundError(
+                f"Student with roll number {roll_no} not found"
+            )
 
         self.repo.delete(student)
 
