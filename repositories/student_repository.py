@@ -10,7 +10,6 @@ class StudentRepository:
         self.filename=filename
         self.students=[]
         self.next_roll=101
-        
         self._load()
 
     # load students ---------------------------------------------------------------

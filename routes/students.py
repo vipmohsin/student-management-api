@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
 from schemas import StudentCreate
 from services.student_service import StudentService
