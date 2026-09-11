@@ -1,6 +1,7 @@
 from repositories.student_repository import StudentRepository
 from exceptions.student_exceptions import StudentNotFoundError
 
+
 class StudentService:
 
     def __init__(self, repo: StudentRepository):
@@ -13,7 +14,7 @@ class StudentService:
         student= self.repo.find_by_roll(roll_no)
         if student is None:
             raise StudentNotFoundError(
-                f"Student with roll number {roll_no} not found"
+                f"Student with roll number {roll_no} not found."
             )
         return student    
 
@@ -25,7 +26,7 @@ class StudentService:
 
         if student is None:
             raise StudentNotFoundError(
-                f"Student with roll number {roll_no} not found"
+                f"Student with roll number {roll_no} not found."
             )
 
         return self.repo.update(
@@ -40,7 +41,7 @@ class StudentService:
 
         if student is None:
             raise StudentNotFoundError(
-                f"Student with roll number {roll_no} not found"
+                f"Student with roll number {roll_no} not found."
             )
 
         self.repo.delete(student)

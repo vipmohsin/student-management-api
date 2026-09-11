@@ -22,15 +22,17 @@ def home():
     return {
         "message": "Student Management API is running"
     }
-
+# student not found error handling and assignig
 app.add_exception_handler(
     StudentNotFoundError,
     student_not_found_handler
 )
+# data load eror handling and assigning
 app.add_exception_handler(
     StudentDataLoadError,
     student_data_load_handler
 )
+# data save error handling and assiging
 app.add_exception_handler(
     StudentDataSaveError,
     student_data_save_handler
