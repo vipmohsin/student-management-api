@@ -1,5 +1,5 @@
 {
-    "next_roll_no": 109,
+    "next_roll_no": 113,
     "students": [
         {
             "roll_no": 101,
@@ -28,6 +28,30 @@
         {
             "roll_no": 108,
             "name": "Jamshaid",
+            "age": 20,
+            "marks": 100
+        },
+        {
+            "roll_no": 109,
+            "name": "asad",
+            "age": 21,
+            "marks": 100
+        },
+        {
+            "roll_no": 110,
+            "name": "abdul rehman",
+            "age": 21,
+            "marks": 100
+        },
+        {
+            "roll_no": 111,
+            "name": "taha",
+            "age": 21,
+            "marks": 100
+        },
+        {
+            "roll_no": 112,
+            "name": "farhan",
             "age": 20,
             "marks": 100
         }
