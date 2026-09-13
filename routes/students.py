@@ -1,5 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,Depends
 
+from dependencies import get_student_service
 from schemas import StudentCreate
 from services.student_service import StudentService
 from repositories.student_repository import StudentRepository
@@ -7,16 +8,17 @@ from repositories.student_repository import StudentRepository
 
 router = APIRouter(prefix="/students", tags=["Students"])
 
-repo = StudentRepository()
-service = StudentService(repo)
+
 
 @router.get("/")
-def get_students():
+def get_students(service: StudentService = Depends(get_student_service)):
+
     return service.get_all_students()
 
 
 @router.post("/")
-def create_student(student_data: StudentCreate):
+def create_student(student_data: StudentCreate,service: StudentService = Depends(get_student_service)):
+    
     return service.create_student(
         student_data.name,
         student_data.age,
@@ -25,12 +27,14 @@ def create_student(student_data: StudentCreate):
 
 
 @router.get("/{roll_no}")
-def get_student(roll_no: int):
+def get_student(roll_no: int, service: StudentService = Depends(get_student_service)):
+    
     return service.get_student_by_roll(roll_no)
 
 
 @router.put("/{roll_no}")
-def update_student(roll_no: int, student_data: StudentCreate):
+def update_student(roll_no: int, student_data: StudentCreate, service: StudentService = Depends(get_student_service)):
+    
     return service.update_student(
         roll_no,
         student_data.name,
@@ -40,7 +44,8 @@ def update_student(roll_no: int, student_data: StudentCreate):
 
 
 @router.delete("/{roll_no}")
-def delete_student(roll_no: int):
+def delete_student(roll_no: int, service: StudentService = Depends(get_student_service)):
+    
     service.delete_student(roll_no)
 
     return {

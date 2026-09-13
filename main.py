@@ -1,6 +1,10 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from routes.students import router as student_router
+from repositories.student_repository import StudentRepository
+from services.student_service import StudentService
+
 from exceptions.student_exceptions import (
     StudentNotFoundError,
     StudentDataLoadError,
@@ -14,7 +18,19 @@ from handlers import (
     
 )
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    repo = StudentRepository()
+    service = StudentService(repo)
+    
+    app.state.student_service = service
+    
+    # code before yeild will run on startup
+    yield
+    # code after yield will run on shutdown
+    
+    
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/")
