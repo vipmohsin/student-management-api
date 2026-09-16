@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends
+from fastapi import APIRouter,Depends,status
 
 from dependencies import get_student_service
 from schemas import StudentCreate,StudentResponse
@@ -21,7 +21,8 @@ def get_students(service: StudentService = Depends(get_student_service)):
 
 @router.post(
     "/",
-    response_model=StudentResponse
+    response_model=StudentResponse,
+    status_code=status.HTTP_201_CREATED
     )
 def create_student(student_data: StudentCreate,service: StudentService = Depends(get_student_service)):
     
@@ -55,11 +56,9 @@ def update_student(roll_no: int, student_data: StudentCreate, service: StudentSe
     )
 
 
-@router.delete("/{roll_no}")
+@router.delete(
+    "/{roll_no}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
 def delete_student(roll_no: int, service: StudentService = Depends(get_student_service)):
-    
     service.delete_student(roll_no)
-
-    return {
-        "message": "Student deleted successfully"
-    }
