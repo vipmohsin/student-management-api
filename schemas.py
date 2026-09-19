@@ -8,6 +8,7 @@ class StudentCreate(BaseModel):
     age:int= Field(ge=5 , le=80)
     marks:float = Field(ge=0 , le=100)
     
+    # this field validator will assign the method to name field
     @field_validator("name")
     @classmethod
     def validate_name(cls, value):
